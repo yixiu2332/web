@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鸡鸡切换器</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #message {
+            font-size: 2em;
+            color: #ff4444;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        #toggleBtn {
+            padding: 12px 24px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        #toggleBtn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+        }
+
+        #toggleBtn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="message">鸡传春你就是一只鸡！</div>
+    <button id="toggleBtn">切换身份</button>
+
+    <script>
+        const messages = [
+            "鸡传春你就是一只鸡！",
+            "鸡广明不是鸡！"
+        ];
+        
+        let currentIndex = 0;
+        const messageElement = document.getElementById('message');
+        const toggleBtn = document.getElementById('toggleBtn');
+
+        function toggleMessage() {
+            currentIndex = (currentIndex + 1) % messages.length;
+            messageElement.textContent = messages[currentIndex];
+            
+            // 添加动画效果
+            messageElement.style.animation = 'none';
+            void messageElement.offsetWidth; // 触发重绘
+            messageElement.style.animation = 'textPop 0.3s ease';
+        }
+
+        toggleBtn.addEventListener('click', toggleMessage);
+
+        // 添加动画关键帧
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes textPop {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
